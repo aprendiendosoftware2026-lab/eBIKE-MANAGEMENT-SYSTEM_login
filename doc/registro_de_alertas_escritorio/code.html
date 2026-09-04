@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>VoltFleet - Energy Alerts Log</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;family=JetBrains+Mono:wght@500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "on-error-container": "#93000a",
+                      "surface-container": "#ebefed",
+                      "sidebar-bg": "#1e4340",
+                      "tertiary-fixed-dim": "#ffb598",
+                      "surface-container-low": "#f1f4f2",
+                      "on-tertiary-fixed": "#370e00",
+                      "primary": "#004843",
+                      "on-background": "#181c1c",
+                      "on-secondary-container": "#446965",
+                      "surface-container-highest": "#e0e3e1",
+                      "on-primary-fixed-variant": "#00504a",
+                      "error-container": "#ffdad6",
+                      "on-primary": "#ffffff",
+                      "on-primary-container": "#8fdbd1",
+                      "on-sidebar": "#eef1f0",
+                      "inverse-primary": "#88d4cb",
+                      "surface-tint": "#126a62",
+                      "surface": "#f7faf8",
+                      "border-subtle": "#e0e7e3",
+                      "on-tertiary-container": "#ffbfa5",
+                      "surface-bright": "#f7faf8",
+                      "on-secondary-fixed-variant": "#284d49",
+                      "primary-container": "#00625b",
+                      "tertiary-container": "#83472d",
+                      "inverse-surface": "#2d3130",
+                      "secondary": "#406561",
+                      "tertiary": "#663119",
+                      "on-tertiary-fixed-variant": "#6f371f",
+                      "background": "#f7faf8",
+                      "secondary-container": "#c0e8e2",
+                      "on-primary-fixed": "#00201d",
+                      "on-error": "#ffffff",
+                      "on-surface-variant": "#3f4947",
+                      "surface-container-high": "#e6e9e7",
+                      "on-surface": "#181c1c",
+                      "success": "#126a62",
+                      "primary-fixed": "#a4f1e7",
+                      "primary-fixed-dim": "#88d4cb",
+                      "surface-container-lowest": "#ffffff",
+                      "inverse-on-surface": "#eef1ef",
+                      "on-secondary": "#ffffff",
+                      "on-tertiary": "#ffffff",
+                      "surface-dim": "#d7dbd9",
+                      "on-secondary-fixed": "#00201e",
+                      "outline-variant": "#bec9c6",
+                      "tertiary-fixed": "#ffdbce",
+                      "surface-variant": "#e0e3e1",
+                      "secondary-fixed": "#c2eae5",
+                      "secondary-fixed-dim": "#a7cec9",
+                      "outline": "#6f7977",
+                      "error": "#ba1a1a"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.125rem",
+                      "lg": "0.25rem",
+                      "xl": "0.5rem",
+                      "full": "0.75rem"
+              },
+              "spacing": {
+                      "sidebar-width": "280px",
+                      "compact-padding": "8px",
+                      "margin": "32px",
+                      "gutter": "24px",
+                      "base-unit": "4px",
+                      "widget-padding": "16px"
+              },
+              "fontFamily": {
+                      "label-caps": [
+                              "Inter"
+                      ],
+                      "body-sm": [
+                              "Inter"
+                      ],
+                      "display-lg": [
+                              "Inter"
+                      ],
+                      "headline-sm": [
+                              "Inter"
+                      ],
+                      "body-lg": [
+                              "Inter"
+                      ],
+                      "data-mono": [
+                              "JetBrains Mono"
+                      ],
+                      "data-mono-sm": [
+                              "JetBrains Mono"
+                      ],
+                      "headline-lg": [
+                              "Inter"
+                      ],
+                      "headline-md": [
+                              "Inter"
+                      ],
+                      "body-md": [
+                              "Inter"
+                      ]
+              },
+              "fontSize": {
+                      "label-caps": [
+                              "11px",
+                              {
+                                      "lineHeight": "16px",
+                                      "letterSpacing": "0.06em",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "body-sm": [
+                              "13px",
+                              {
+                                      "lineHeight": "18px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "display-lg": [
+                              "48px",
+                              {
+                                      "lineHeight": "56px",
+                                      "letterSpacing": "-0.02em",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "headline-sm": [
+                              "20px",
+                              {
+                                      "lineHeight": "28px",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "body-lg": [
+                              "16px",
+                              {
+                                      "lineHeight": "24px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "data-mono": [
+                              "14px",
+                              {
+                                      "lineHeight": "20px",
+                                      "fontWeight": "500"
+                              }
+                      ],
+                      "data-mono-sm": [
+                              "12px",
+                              {
+                                      "lineHeight": "16px",
+                                      "fontWeight": "500"
+                              }
+                      ],
+                      "headline-lg": [
+                              "32px",
+                              {
+                                      "lineHeight": "40px",
+                                      "letterSpacing": "-0.01em",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "headline-md": [
+                              "24px",
+                              {
+                                      "lineHeight": "32px",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "body-md": [
+                              "14px",
+                              {
+                                      "lineHeight": "20px",
+                                      "fontWeight": "400"
+                              }
+                      ]
+              }
+      },
+          },
+        }
+      </script>
+<style>
+        body { background-color: #f7faf8; color: #181c1c; font-family: 'Inter', sans-serif; }
+    </style>
+</head>
+<body class="bg-background text-on-background h-screen overflow-hidden flex">
+<!-- SideNavBar -->
+<nav class="fixed left-0 top-0 h-full w-sidebar-width bg-sidebar-bg text-primary font-body-md text-body-md flex flex-col z-50">
+<div class="p-6 pb-2">
+<div class="flex items-center gap-3 mb-8">
+<div class="w-10 h-10 rounded-full bg-primary-container flex items-center justify-center overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A professional headshot of a fleet manager, slightly abstracted or low poly to fit an industrial dashboard aesthetic, with a neutral mint green background. Lighting should be even and professional." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA19rShIyjBSCYKWaGtipwkAIr90kpN2dbc2JGPFZjfKnHMAkiORGKgo99siUMTMQ8aVagz5Eo7K_zACkf50H82BGYCxZrey-10-6CKnr8ljQlIeeiMvvVXGlbiBhXCiqpDNrZnTLazLscMEjLDOV6Hhwm3OXLgR9zQpG5utRtZt58CaxNg2IhBsIl2qBWb85A8m3RNcD1sH0xKH7_-AtSZi1Kdl8WxjcMMitY-qLcqTnXFPrDbKKib9g"/>
+</div>
+<div>
+<h2 class="font-headline-sm text-headline-sm font-bold text-on-sidebar leading-tight">Fleet Manager</h2>
+<p class="font-label-caps text-label-caps text-on-sidebar/70 uppercase">Precision Energy Admin</p>
+</div>
+</div>
+</div>
+<ul class="flex-1 px-2 space-y-1">
+<li>
+<a class="flex items-center px-4 py-3 text-on-sidebar/70 hover:text-on-sidebar hover:bg-white/5 transition-colors cursor-pointer active:opacity-80 rounded-DEFAULT" href="#">
+<span class="material-symbols-outlined mr-3">dashboard</span>
+                    Dashboard
+                </a>
+</li>
+<li>
+<a class="flex items-center px-4 py-3 text-on-sidebar/70 hover:text-on-sidebar hover:bg-white/5 transition-colors cursor-pointer active:opacity-80 rounded-DEFAULT" href="#">
+<span class="material-symbols-outlined mr-3">ev_station</span>
+                    Stations
+                </a>
+</li>
+<li>
+<a class="flex items-center px-4 py-3 text-on-sidebar/70 hover:text-on-sidebar hover:bg-white/5 transition-colors cursor-pointer active:opacity-80 rounded-DEFAULT" href="#">
+<span class="material-symbols-outlined mr-3">show_chart</span>
+                    Energy History
+                </a>
+</li>
+<li>
+<a class="flex items-center px-4 py-3 bg-primary-container/10 border-l-4 border-primary text-on-sidebar font-semibold cursor-pointer active:opacity-80 rounded-r-DEFAULT" href="#">
+<span class="material-symbols-outlined mr-3" data-weight="fill" style="font-variation-settings: 'FILL' 1;">notifications_active</span>
+                    Alerts
+                </a>
+</li>
+</ul>
+<div class="p-4 mt-auto border-t border-white/10">
+<button class="w-full bg-primary-container text-on-primary-container py-2 rounded-DEFAULT font-label-caps text-label-caps uppercase hover:bg-primary-container/90 transition-colors mb-4 cursor-pointer active:opacity-80 flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-[16px]">download</span> Export Fleet Report
+            </button>
+<ul class="space-y-1">
+<li>
+<a class="flex items-center px-4 py-2 text-on-sidebar/70 hover:text-on-sidebar hover:bg-white/5 transition-colors cursor-pointer active:opacity-80 rounded-DEFAULT font-body-sm text-body-sm" href="#">
+<span class="material-symbols-outlined mr-3 text-[18px]">settings</span>
+                        Settings
+                    </a>
+</li>
+<li>
+<a class="flex items-center px-4 py-2 text-on-sidebar/70 hover:text-on-sidebar hover:bg-white/5 transition-colors cursor-pointer active:opacity-80 rounded-DEFAULT font-body-sm text-body-sm" href="#">
+<span class="material-symbols-outlined mr-3 text-[18px]">help_outline</span>
+                        Support
+                    </a>
+</li>
+</ul>
+</div>
+</nav>
+<!-- TopNavBar -->
+<header class="fixed top-0 right-0 left-[280px] h-16 bg-surface dark:bg-surface text-primary dark:text-primary-fixed font-label-caps text-label-caps border-b border-border-subtle dark:border-outline-variant flex justify-between items-center px-margin z-40">
+<div class="flex items-center gap-4">
+<div class="font-headline-md text-headline-md font-bold text-primary tracking-tight">VoltFleet</div>
+<div class="relative ml-8 hidden md:block">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-[18px]">search</span>
+<input class="pl-10 pr-4 py-1.5 bg-white border border-border-subtle rounded-DEFAULT text-body-sm focus:border-primary focus:ring-0 outline-none w-64 transition-colors focus-within:border-primary" placeholder="Search alerts, stations, VINs..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button class="text-on-surface-variant hover:text-primary transition-colors focus-within:border-primary p-1">
+<span class="material-symbols-outlined">account_circle</span>
+</button>
+<button class="text-on-surface-variant hover:text-primary transition-colors focus-within:border-primary p-1">
+<span class="material-symbols-outlined">dark_mode</span>
+</button>
+<div class="h-6 w-px bg-border-subtle mx-2"></div>
+<button class="bg-primary text-on-primary px-4 py-1.5 rounded-DEFAULT font-label-caps text-label-caps uppercase hover:opacity-90 transition-opacity focus-within:border-primary flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px]">add</span> Add Station
+            </button>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="ml-sidebar-width mt-16 p-margin w-[calc(100%-280px)] h-[calc(100vh-64px)] overflow-y-auto bg-surface-container-lowest">
+<!-- Header & Filters -->
+<div class="mb-gutter flex justify-between items-end border-b border-border-subtle pb-4">
+<div>
+<h1 class="font-headline-lg text-headline-lg font-bold text-on-surface mb-2">Energy Alerts Log</h1>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Real-time monitoring and resolution tracking for fleet anomalies.</p>
+</div>
+<div class="flex gap-2 bg-surface-container-low p-1 rounded-lg border border-border-subtle">
+<button class="px-4 py-1.5 rounded-DEFAULT bg-white shadow-sm font-label-caps text-label-caps text-primary font-bold transition-all border-b-2 border-primary">All Active</button>
+<button class="px-4 py-1.5 rounded-DEFAULT hover:bg-white/50 text-on-surface-variant font-label-caps text-label-caps transition-all">Critical</button>
+<button class="px-4 py-1.5 rounded-DEFAULT hover:bg-white/50 text-on-surface-variant font-label-caps text-label-caps transition-all">Warning</button>
+<button class="px-4 py-1.5 rounded-DEFAULT hover:bg-white/50 text-on-surface-variant font-label-caps text-label-caps transition-all">Resolved</button>
+</div>
+</div>
+<!-- Bento Grid Layout -->
+<div class="grid grid-cols-12 gap-gutter">
+<!-- Summary Widget (Span 4) -->
+<div class="col-span-12 md:col-span-4 bg-white border border-border-subtle rounded-lg p-widget-padding hover:border-primary hover:shadow-[0_4px_8px_rgba(0,72,67,0.05)] transition-all flex flex-col justify-between">
+<div>
+<h3 class="font-label-caps text-label-caps text-on-surface-variant uppercase border-b border-border-subtle pb-2 mb-4 flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px]">info</span>
+                        Status Overview
+                    </h3>
+<div class="space-y-4">
+<div class="flex justify-between items-center">
+<span class="font-body-sm text-body-sm text-on-surface-variant">Total Active Alerts</span>
+<span class="font-data-mono text-data-mono text-on-surface font-bold">24</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="font-body-sm text-body-sm text-error flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-error"></span> Critical</span>
+<span class="font-data-mono text-data-mono text-error font-bold">3</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="font-body-sm text-body-sm text-tertiary-container flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-tertiary-container"></span> Warning</span>
+<span class="font-data-mono text-data-mono text-tertiary-container font-bold">12</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="font-body-sm text-body-sm text-success flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-success"></span> Investigating</span>
+<span class="font-data-mono text-data-mono text-success font-bold">9</span>
+</div>
+</div>
+</div>
+<div class="mt-6 pt-4 border-t border-border-subtle">
+<button class="w-full text-center font-label-caps text-label-caps text-primary hover:bg-surface-container-low py-2 rounded transition-colors uppercase">View Analytics</button>
+</div>
+</div>
+<!-- Main List Widget (Span 8) -->
+<div class="col-span-12 md:col-span-8 bg-white border border-border-subtle rounded-lg p-0 hover:border-primary hover:shadow-[0_4px_8px_rgba(0,72,67,0.05)] transition-all overflow-hidden flex flex-col">
+<div class="p-widget-padding border-b border-border-subtle bg-surface-bright flex justify-between items-center">
+<h3 class="font-label-caps text-label-caps text-on-surface-variant uppercase flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px]">list_alt</span>
+                        Alert Feed
+                    </h3>
+<button class="font-label-caps text-label-caps text-primary hover:underline">Mark All Read</button>
+</div>
+<div class="flex-1 overflow-y-auto">
+<!-- Critical Alert Item -->
+<div class="p-4 border-b border-border-subtle hover:bg-surface-container-low transition-colors cursor-pointer group flex gap-4 items-start">
+<div class="mt-1">
+<span class="material-symbols-outlined text-error" data-weight="fill" style="font-variation-settings: 'FILL' 1;">error</span>
+</div>
+<div class="flex-1">
+<div class="flex justify-between items-start mb-1">
+<h4 class="font-headline-sm text-headline-sm font-semibold text-on-surface">Critical Battery &lt; 20%</h4>
+<span class="font-data-mono-sm text-data-mono-sm text-on-surface-variant">10:42 AM</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mb-2">Vehicle VIN: <span class="font-data-mono text-data-mono">VF-9021-X</span> reported battery level dropping faster than expected during idle state.</p>
+<div class="flex items-center gap-2 mt-2">
+<span class="inline-flex items-center px-2 py-0.5 rounded-DEFAULT text-[10px] font-bold uppercase tracking-wider bg-error-container text-on-error-container">Active</span>
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase">Downtown Hub Alpha</span>
+</div>
+</div>
+<div class="opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="bg-primary-container text-on-primary-container px-3 py-1.5 rounded-DEFAULT font-label-caps text-label-caps uppercase hover:bg-primary transition-colors">Acknowledge</button>
+</div>
+</div>
+<!-- Warning Alert Item -->
+<div class="p-4 border-b border-border-subtle hover:bg-surface-container-low transition-colors cursor-pointer group flex gap-4 items-start bg-surface-container-lowest">
+<div class="mt-1">
+<span class="material-symbols-outlined text-tertiary-container">warning</span>
+</div>
+<div class="flex-1">
+<div class="flex justify-between items-start mb-1">
+<h4 class="font-headline-sm text-headline-sm font-semibold text-on-surface">High Temperature Warning</h4>
+<span class="font-data-mono-sm text-data-mono-sm text-on-surface-variant">09:15 AM</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mb-2">Station ID: <span class="font-data-mono text-data-mono">ST-402</span> reporting internal temp exceeding 45°C. Cooling fan engaged.</p>
+<div class="flex items-center gap-2 mt-2">
+<span class="inline-flex items-center px-2 py-0.5 rounded-DEFAULT text-[10px] font-bold uppercase tracking-wider bg-surface-container-high text-success">Investigating</span>
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase">Westside Depot</span>
+</div>
+</div>
+<div class="opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="bg-white border border-primary text-primary px-3 py-1.5 rounded-DEFAULT font-label-caps text-label-caps uppercase hover:bg-surface-container-low transition-colors">Details</button>
+</div>
+</div>
+<!-- Warning Alert Item 2 -->
+<div class="p-4 border-b border-border-subtle hover:bg-surface-container-low transition-colors cursor-pointer group flex gap-4 items-start">
+<div class="mt-1">
+<span class="material-symbols-outlined text-tertiary-container">warning</span>
+</div>
+<div class="flex-1">
+<div class="flex justify-between items-start mb-1">
+<h4 class="font-headline-sm text-headline-sm font-semibold text-on-surface">Overloaded Station Grid</h4>
+<span class="font-data-mono-sm text-data-mono-sm text-on-surface-variant">08:05 AM</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mb-2">Station Array <span class="font-data-mono text-data-mono">ARR-B</span> drawing 95% of allocated grid capacity. Load balancing recommended.</p>
+<div class="flex items-center gap-2 mt-2">
+<span class="inline-flex items-center px-2 py-0.5 rounded-DEFAULT text-[10px] font-bold uppercase tracking-wider bg-surface-container-high text-success">Investigating</span>
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase">North Industrial Park</span>
+</div>
+</div>
+<div class="opacity-0 group-hover:opacity-100 transition-opacity flex gap-2">
+<button class="bg-white border border-primary text-primary px-3 py-1.5 rounded-DEFAULT font-label-caps text-label-caps uppercase hover:bg-surface-container-low transition-colors">Details</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+</body></html>
