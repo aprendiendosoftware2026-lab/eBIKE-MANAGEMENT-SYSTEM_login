@@ -1,1 +1,168 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kinetic Telemetry | Gestión E-Bike</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet">
+<style>
+:root{--bg:#f8f9ff;--card:#fff;--nav:#213145;--text:#0b1c30;--muted:#607080;--line:#dbe3ee;--primary:#006948;--primary2:#00855d;--soft:#e9f8f1;--blue:#dce9ff;--danger:#ba1a1a;--dangerbg:#ffdad6;--warn:#a15c00;--warnbg:#fff0d4;--shadow:0 8px 28px rgba(19,43,70,.07)}
+*{box-sizing:border-box}html,body{margin:0;font-family:Inter,Arial,sans-serif;background:var(--bg);color:var(--text)}button,input,select{font:inherit}button{cursor:pointer}
+.app{display:flex;min-height:100vh}.sidebar{width:250px;background:var(--nav);color:#eaf1ff;position:fixed;inset:0 auto 0 0;padding:24px 16px;z-index:5}
+.brand{display:flex;align-items:center;gap:12px;padding:4px 10px 28px}.brand-icon{width:42px;height:42px;border-radius:10px;background:#68dba9;color:#002114;display:grid;place-items:center;font-weight:800}.brand strong{font-family:"Plus Jakarta Sans";font-size:17px}.brand small{display:block;color:#aebdce;margin-top:2px}
+.nav-title{font-size:10px;letter-spacing:.12em;color:#92a4b7;margin:18px 10px 8px;font-weight:700}.nav button{width:100%;border:0;background:transparent;color:#d8e3ef;padding:12px 12px;border-radius:7px;text-align:left;display:flex;gap:12px;align-items:center;margin:3px 0}.nav button:hover,.nav button.active{background:#304359;color:#fff}.nav button.active{box-shadow:inset 3px 0 var(--primary2)}
+.sidebar-foot{position:absolute;bottom:18px;left:20px;right:20px;font-size:11px;color:#9fb0c2;border-top:1px solid #405267;padding-top:14px}
+main{margin-left:250px;width:calc(100% - 250px);padding:28px 34px 50px}.topbar{display:flex;justify-content:space-between;align-items:center;margin-bottom:26px}.eyebrow{font-size:11px;text-transform:uppercase;letter-spacing:.1em;color:var(--primary);font-weight:700}.topbar h1{font-family:"Plus Jakarta Sans";font-size:30px;margin:4px 0}.top-actions{display:flex;gap:10px;align-items:center}.icon-btn,.btn{border:1px solid var(--line);background:var(--card);color:var(--text);padding:10px 13px;border-radius:6px;display:inline-flex;gap:7px;align-items:center}.btn.primary{background:var(--primary);border-color:var(--primary);color:#fff}.btn:hover{filter:brightness(.97)}.section{display:none}.section.active{display:block}
+.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}.metric{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:18px;box-shadow:var(--shadow)}.metric .label{font-size:11px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.06em}.metric .value{font-family:"Plus Jakarta Sans";font-size:28px;margin:7px 0}.trend{font-size:12px;color:var(--primary);font-weight:600}.trend.bad{color:var(--danger)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:8px;box-shadow:var(--shadow);padding:20px}.card h2{font-family:"Plus Jakarta Sans";font-size:18px;margin:0 0 4px}.sub{font-size:12px;color:var(--muted);margin:0 0 18px}.two{display:grid;grid-template-columns:1.5fr 1fr;gap:16px;margin-top:16px}.three{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:16px}
+.bar-row{display:grid;grid-template-columns:150px 1fr 60px;gap:10px;align-items:center;margin:15px 0;font-size:12px}.bar{height:9px;background:#edf1f6;border-radius:20px;overflow:hidden}.bar i{display:block;height:100%;background:var(--primary2);border-radius:20px}.status{padding:4px 8px;border-radius:20px;font-size:10px;font-weight:700;display:inline-block}.ok{background:var(--soft);color:#005137}.warning{background:var(--warnbg);color:var(--warn)}.danger{background:var(--dangerbg);color:var(--danger)}.info{background:var(--blue);color:#40516f}
+.toolbar{display:flex;gap:10px;justify-content:space-between;align-items:center;margin:18px 0}.filters{display:flex;gap:8px;flex-wrap:wrap}.filters input,.filters select,.form input,.form select{border:1px solid var(--line);background:#fff;border-radius:6px;padding:10px 11px;outline:none}.filters input:focus,.form input:focus{border-color:var(--primary)}
+.table-wrap{overflow:auto}.table{width:100%;border-collapse:collapse;font-size:12px}.table th{text-align:left;color:var(--muted);font-size:10px;text-transform:uppercase;letter-spacing:.06em;background:#f3f6fa}.table th,.table td{padding:12px 10px;border-bottom:1px solid var(--line);white-space:nowrap}.table tr:hover td{background:#fbfcfe}
+.page-head{display:flex;justify-content:space-between;align-items:end}.page-head h1{font-family:"Plus Jakarta Sans";font-size:27px;margin:5px 0}.mini-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:16px}.mini{padding:15px;background:var(--card);border:1px solid var(--line);border-radius:8px}.mini b{font-size:21px;font-family:"Plus Jakarta Sans"}.mini span{display:block;color:var(--muted);font-size:11px;margin-top:4px}
+.alert{display:grid;grid-template-columns:42px 1fr auto;gap:12px;align-items:center;padding:14px 0;border-bottom:1px solid var(--line)}.alert:last-child{border-bottom:0}.alert-icon{width:38px;height:38px;border-radius:8px;background:var(--dangerbg);color:var(--danger);display:grid;place-items:center}.alert strong{font-size:13px}.alert p{font-size:11px;color:var(--muted);margin:4px 0}
+.chart{height:180px;display:flex;align-items:end;gap:9px;padding:15px 4px 5px;border-bottom:1px solid var(--line)}.col{flex:1;display:flex;flex-direction:column;align-items:center;gap:6px;height:100%;justify-content:end}.col i{display:block;width:70%;background:var(--primary2);border-radius:4px 4px 0 0;min-height:5px}.col span{font-size:9px;color:var(--muted)}
+.modal{position:fixed;inset:0;background:rgba(5,18,32,.48);display:none;align-items:center;justify-content:center;z-index:20}.modal.show{display:flex}.modal-box{background:#fff;width:min(560px,92vw);border-radius:10px;padding:24px;box-shadow:0 25px 70px rgba(0,0,0,.2)}.modal-head{display:flex;justify-content:space-between;align-items:center}.modal-head h3{font-family:"Plus Jakarta Sans";margin:0}.close{border:0;background:transparent;font-size:25px}.form{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:18px}.form label{font-size:11px;color:var(--muted);font-weight:600}.form input,.form select{width:100%;margin-top:5px}.full{grid-column:1/-1}.modal-actions{display:flex;justify-content:flex-end;gap:8px;margin-top:20px}
+.sim{display:grid;grid-template-columns:1.2fr 1fr;gap:22px;align-items:center}.sim input[type=range]{width:100%}.result{font-family:"Plus Jakarta Sans";font-size:27px;color:var(--primary);margin:4px 0 14px}
+.toast{position:fixed;right:25px;bottom:25px;background:#213145;color:#fff;padding:13px 16px;border-radius:7px;display:none;z-index:30;font-size:12px}.toast.show{display:block}
+@media(max-width:950px){.sidebar{width:72px}.brand div:last-child,.nav-title,.nav button span:last-child,.sidebar-foot{display:none}.brand{padding:4px 6px 25px}.nav button{justify-content:center}.sidebar .brand-icon{margin:auto}main{margin-left:72px;width:calc(100% - 72px);padding:22px}.grid4{grid-template-columns:repeat(2,1fr)}.two,.three,.sim{grid-template-columns:1fr}}
+@media(max-width:600px){.grid4,.mini-grid{grid-template-columns:1fr}.topbar,.page-head{align-items:flex-start;gap:12px;flex-direction:column}.top-actions{width:100%}.two,.three{grid-template-columns:1fr}main{padding:18px}.topbar h1,.page-head h1{font-size:24px}}
+</style>
+</head>
+<body>
+<div class="app">
+<aside class="sidebar">
+  <div class="brand"><div class="brand-icon">E</div><div><strong>Bike</strong><small>Electric</small></div></div>
+  <div class="nav-title">OPERACIONES</div>
+  <div class="nav">
+    <button class="active" data-page="dashboard"><span class="material-symbols-outlined">dashboard</span><span>Panel general</span></button>
+    <button data-page="baterias"><span class="material-symbols-outlined">battery_full</span><span>Baterías</span></button>
+    <button data-page="cargas"><span class="material-symbols-outlined">ev_station</span><span>Cargas</span></button>
+    <button data-page="energia"><span class="material-symbols-outlined">electric_meter</span><span>Energía y costos</span></button>
+    <button data-page="alertas"><span class="material-symbols-outlined">notifications_active</span><span>Alertas</span></button>
+  </div>
+  <div class="nav-title">SISTEMA</div>
+  <div class="nav">
+    <button onclick="showToast('Telemetría sincronizada correctamente')"><span class="material-symbols-outlined">sync</span><span>Sincronizar</span></button>
+    <button onclick="toggleTheme()"><span class="material-symbols-outlined">dark_mode</span><span>Modo visual</span></button>
+  </div>
+  <div class="sidebar-foot">Sistema operativo · v1.0<br>6 estaciones · 412 baterías monitoreadas</div>
+</aside>
 
+<main>
+<header class="topbar">
+  <div><div class="eyebrow">Fleet Operations / E-Bike</div><h1 id="pageTitle">Panel general</h1></div>
+  <div class="top-actions"><button class="icon-btn" onclick="showToast('Última sincronización: ahora')"><span class="material-symbols-outlined">notifications</span></button><button class="btn primary" onclick="openModal('bateriaModal')"><span class="material-symbols-outlined">add</span>Registrar batería</button></div>
+</header>
+
+<section id="dashboard" class="section active">
+  <div class="grid4">
+    <div class="metric"><div class="label">Baterías activas</div><div class="value" id="mBaterias">412</div><div class="trend">↑ 4.2% esta semana</div></div>
+    <div class="metric"><div class="label">SoC promedio</div><div class="value">78.4%</div><div class="trend">↑ 2.8% vs. ayer</div></div>
+    <div class="metric"><div class="label">Energía 24 h</div><div class="value">3,992 kWh</div><div class="trend">6 estaciones activas</div></div>
+    <div class="metric"><div class="label">Alertas activas</div><div class="value">19</div><div class="trend bad">2 críticas requieren atención</div></div>
+  </div>
+  <div class="two">
+    <div class="card"><h2>Consumo energético por estación</h2><p class="sub">Distribución de las últimas 24 horas</p>
+      <div class="bar-row"><span>EST-01 · Central Norte</span><div class="bar"><i style="width:82%"></i></div><b>1,842</b></div>
+      <div class="bar-row"><span>EST-02 · Hub Tecnológico</span><div class="bar"><i style="width:64%"></i></div><b>1,210</b></div>
+      <div class="bar-row"><span>EST-03 · Paseo del Río</span><div class="bar"><i style="width:48%"></i></div><b>940</b></div>
+      <div class="bar-row"><span>EST-04 · Plaza Mayor</span><div class="bar"><i style="width:31%"></i></div><b>—</b></div>
+    </div>
+    <div class="card"><h2>Estado de flota</h2><p class="sub">Telemetría resumida en tiempo real</p>
+      <div class="bar-row"><span>Operativas</span><div class="bar"><i style="width:76%"></i></div><b>76%</b></div>
+      <div class="bar-row"><span>En carga</span><div class="bar"><i style="width:15%"></i></div><b>15%</b></div>
+      <div class="bar-row"><span>Mantenimiento</span><div class="bar"><i style="width:6%"></i></div><b>6%</b></div>
+      <div class="bar-row"><span>Inactivas</span><div class="bar"><i style="width:3%"></i></div><b>3%</b></div>
+    </div>
+  </div>
+  <div class="three">
+    <div class="card"><h2>Última alerta crítica</h2><p class="sub">BAT-089 · BK-156</p><span class="status danger">CRÍTICA</span><p style="font-size:12px">Temperatura de módulo: <b>52.4 °C</b>. Se recomienda aislamiento inmediato.</p><button class="btn" onclick="go('alertas')">Ver alertas</button></div>
+    <div class="card"><h2>Rotación rápida</h2><p class="sub">Tiempo promedio de intercambio</p><div class="result">48 s</div><span class="status ok">DENTRO DEL OBJETIVO</span></div>
+    <div class="card"><h2>Red renovable</h2><p class="sub">Energía inteligente priorizada</p><div class="result">82%</div><span class="status ok">MODO ECO ACTIVO</span></div>
+  </div>
+</section>
+
+<section id="baterias" class="section">
+ <div class="page-head"><div><div class="eyebrow">Inventario / Telemetría</div><h1>Inventario y Telemetría de Baterías</h1></div><button class="btn primary" onclick="openModal('bateriaModal')"><span class="material-symbols-outlined">add_circle</span>Nueva batería</button></div>
+ <div class="mini-grid" style="margin-top:18px"><div class="mini"><b id="batCount">412</b><span>Total monitoreadas</span></div><div class="mini"><b>78.4%</b><span>SoC promedio</span></div><div class="mini"><b>91.8%</b><span>SoH promedio</span></div></div>
+ <div class="card"><div class="toolbar"><div class="filters"><input id="batSearch" placeholder="Buscar ID, código o bicicleta..." oninput="filterTable('batSearch','batTable')"><select id="batStatus" onchange="filterBatteryStatus()"><option value="">Todos los estados</option><option>Operativa</option><option>En Carga</option><option>Mantenimiento</option><option>Inactiva</option></select></div><button class="btn" onclick="exportTable('batTable','baterias.csv')"><span class="material-symbols-outlined">download</span>Exportar CSV</button></div>
+ <div class="table-wrap"><table class="table" id="batTable"><thead><tr><th>ID</th><th>Batería</th><th>Bicicleta</th><th>SoC</th><th>SoH</th><th>Temperatura</th><th>Ciclos</th><th>Estado</th></tr></thead><tbody>
+ <tr><td>BAT-0012</td><td>EBK-48V-012</td><td>BK-048</td><td>98%</td><td>97%</td><td>34 °C</td><td>118</td><td><span class="status ok">Operativa</span></td></tr>
+ <tr><td>BAT-0089</td><td>EBK-48V-089</td><td>BK-156</td><td>61%</td><td>86%</td><td>52.4 °C</td><td>486</td><td><span class="status danger">Mantenimiento</span></td></tr>
+ <tr><td>BAT-0104</td><td>EBK-48V-104</td><td>BK-203</td><td>41%</td><td>92%</td><td>39 °C</td><td>205</td><td><span class="status warning">En Carga</span></td></tr>
+ <tr><td>BAT-0199</td><td>EBK-48V-199</td><td>BK-230</td><td>95%</td><td>95%</td><td>31 °C</td><td>143</td><td><span class="status ok">Operativa</span></td></tr>
+ <tr><td>BAT-0204</td><td>EBK-48V-204</td><td>BK-409</td><td>2.1%</td><td>72%</td><td>36 °C</td><td>390</td><td><span class="status danger">Mantenimiento</span></td></tr>
+ <tr><td>BAT-0421</td><td>EBK-48V-421</td><td>BK-088</td><td>74%</td><td>89%</td><td>33 °C</td><td>262</td><td><span class="status ok">Operativa</span></td></tr>
+ </tbody></table></div></div>
+</section>
+
+<section id="cargas" class="section">
+ <div class="page-head"><div><div class="eyebrow">Energía / Sesiones</div><h1>Historial y Sesiones de Carga</h1></div><button class="btn primary" onclick="openModal('cargaModal')"><span class="material-symbols-outlined">add_circle</span>Nueva sesión</button></div>
+ <div class="two"><div class="card"><h2>Flujo de carga y picos horarios</h2><p class="sub">Potencia agregada · últimas 24 horas · pico 342 kW</p><div class="chart">
+  <div class="col"><i style="height:25%"></i><span>00</span></div><div class="col"><i style="height:20%"></i><span>04</span></div><div class="col"><i style="height:36%"></i><span>08</span></div><div class="col"><i style="height:65%"></i><span>12</span></div><div class="col"><i style="height:92%"></i><span>14</span></div><div class="col"><i style="height:72%"></i><span>16</span></div><div class="col"><i style="height:49%"></i><span>20</span></div><div class="col"><i style="height:30%"></i><span>23</span></div>
+ </div></div>
+ <div class="card"><h2>Distribución por Hub</h2><p class="sub">Participación energética</p><div class="bar-row"><span>EST-01</span><div class="bar"><i style="width:58%"></i></div><b>58%</b></div><div class="bar-row"><span>EST-02</span><div class="bar"><i style="width:27%"></i></div><b>27%</b></div><div class="bar-row"><span>EST-03</span><div class="bar"><i style="width:15%"></i></div><b>15%</b></div></div></div>
+ <div class="card" style="margin-top:16px"><div class="toolbar"><div class="filters"><input id="chargeSearch" placeholder="Buscar batería o estación..." oninput="filterTable('chargeSearch','chargeTable')"><select onchange="filterStatusSelect(this,'chargeTable',6)"><option value="">Todos los estados</option><option>Completado</option><option>En Proceso</option><option>Interrumpido</option></select></div><button class="btn" onclick="exportTable('chargeTable','historial_cargas.csv')"><span class="material-symbols-outlined">download</span>Descargar reporte</button></div>
+ <div class="table-wrap"><table class="table" id="chargeTable"><thead><tr><th>ID</th><th>Batería</th><th>Estación / Dock</th><th>SoC inicial</th><th>SoC final</th><th>Tiempo</th><th>Estado</th><th>Energía</th></tr></thead><tbody>
+ <tr><td>CHG-9842</td><td>BAT-0012</td><td>EST-01 / DC-04</td><td>14%</td><td>98%</td><td>1h 45m</td><td><span class="status ok">Completado</span></td><td>0.72 kWh</td></tr>
+ <tr><td>CHG-9843</td><td>BAT-0884</td><td>EST-02 / DC-01</td><td>32%</td><td>68%</td><td>35m · ETA 25m</td><td><span class="status info">En Proceso</span></td><td>0.34 kWh</td></tr>
+ <tr><td>CHG-9841</td><td>BAT-0104</td><td>EST-03 / AC-02</td><td>08%</td><td>41%</td><td>31m 48s</td><td><span class="status danger">Interrumpido</span></td><td>0.26 kWh</td></tr>
+ <tr><td>CHG-9840</td><td>BAT-0421</td><td>EST-01 / DC-02</td><td>22%</td><td>100%</td><td>1h 42m</td><td><span class="status ok">Completado</span></td><td>0.68 kWh</td></tr>
+ </tbody></table></div></div>
+</section>
+
+<section id="energia" class="section">
+ <div class="page-head"><div><div class="eyebrow">Auditoría / Costos</div><h1>Registro de Energía y Auditoría de Costos</h1></div><div><button class="btn" onclick="openModal('tarifaModal')">Ajustar tarifa kWh</button> <button class="btn primary" onclick="openModal('energiaModal')"><span class="material-symbols-outlined">add</span>Nuevo registro</button></div></div>
+ <div class="grid4" style="margin-top:18px"><div class="metric"><div class="label">Consumo mensual</div><div class="value">18,742</div><div class="trend">kWh registrados</div></div><div class="metric"><div class="label">Costo estimado</div><div class="value">$3,936</div><div class="trend">$0.210 / kWh</div></div><div class="metric"><div class="label">Presupuesto</div><div class="value">$4,500</div><div class="trend">87.5% utilizado</div></div><div class="metric"><div class="label">CO₂ evitado</div><div class="value">4.87 t</div><div class="trend">movilidad eléctrica</div></div></div>
+ <div class="card" style="margin-top:16px"><h2>Simulador de ahorro y CO₂</h2><p class="sub">Calcula el impacto de desplazar consumo a horario valle.</p><div class="sim"><div><label style="font-size:12px;font-weight:600">Consumo estimado (kWh)</label><input id="simKwh" type="number" value="1000" min="0" style="width:100%;margin:8px 0 20px;padding:10px;border:1px solid var(--line);border-radius:6px" oninput="simular()"><label style="font-size:12px;font-weight:600">Desplazamiento a valle: <b id="valleLabel">50%</b></label><input id="simRange" type="range" min="0" max="100" value="50" oninput="simular()"></div><div><div style="font-size:11px;color:var(--muted)">AHORRO ESTIMADO</div><div class="result" id="ahorro">$26.00 USD</div><div style="font-size:11px;color:var(--muted)">EMISIONES ASOCIADAS</div><div class="result" id="co2">260 Kg CO₂</div></div></div></div>
+ <div class="card" style="margin-top:16px"><div class="toolbar"><div><h2>Libro de registro</h2><p class="sub">Auditoría de consumo por estación</p></div><button class="btn" onclick="exportTable('energyTable','registro_energia.csv')">Descargar balance</button></div><div class="table-wrap"><table class="table" id="energyTable"><thead><tr><th>Registro</th><th>Estación</th><th>Fecha</th><th>Consumo</th><th>Tarifa</th><th>Total</th><th>Estado</th></tr></thead><tbody><tr><td>ENG-2048</td><td>EST-01 Central Norte</td><td>24/10/2024</td><td>1,842 kWh</td><td>$0.210</td><td>$386.82</td><td><span class="status ok">Auditado</span></td></tr><tr><td>ENG-2047</td><td>EST-02 Hub Tecnológico</td><td>24/10/2024</td><td>1,210 kWh</td><td>$0.210</td><td>$254.10</td><td><span class="status ok">Auditado</span></td></tr><tr><td>ENG-2046</td><td>EST-03 Paseo del Río</td><td>24/10/2024</td><td>940 kWh</td><td>$0.205</td><td>$192.70</td><td><span class="status info">En revisión</span></td></tr></tbody></table></div></div>
+</section>
+
+<section id="alertas" class="section">
+ <div class="page-head"><div><div class="eyebrow">Seguridad / BMS</div><h1>Centro de Alertas de Energía y Seguridad</h1></div><div><button class="btn" onclick="showToast('Reporte de incidentes preparado')">Exportar incidentes</button> <button class="btn primary" onclick="showToast('Protocolo de aislamiento activado')"><span class="material-symbols-outlined">power_off</span>Corte remoto</button></div></div>
+ <div class="mini-grid" style="margin-top:18px"><div class="mini"><b>19</b><span>Alertas activas</span></div><div class="mini"><b style="color:var(--danger)">2</b><span>Críticas</span></div><div class="mini"><b>142</b><span>Resueltas</span></div></div>
+ <div class="two"><div class="card"><h2>Alertas recientes</h2><p class="sub">Priorizadas por nivel de riesgo</p>
+  <div class="alert"><div class="alert-icon"><span class="material-symbols-outlined">battery_alert</span></div><div><strong>Desbalance crítico de celda</strong><p>BAT-089 · Diferencia de 410 mV respecto a celda base.</p></div><span class="status danger">Crítica</span></div>
+  <div class="alert"><div class="alert-icon"><span class="material-symbols-outlined">electric_meter</span></div><div><strong>Voltaje inestable</strong><p>BAT-029 · Oscilaciones de ±2.8 V bajo carga.</p></div><span class="status danger">Alta</span></div>
+  <div class="alert"><div class="alert-icon"><span class="material-symbols-outlined">battery_0_bar</span></div><div><strong>Descarga crítica profunda</strong><p>BAT-204 · Nivel de carga cayó al 2.1%.</p></div><span class="status warning">Alta</span></div>
+  <div class="alert"><div class="alert-icon"><span class="material-symbols-outlined">signal_wifi_off</span></div><div><strong>Pérdida de comunicación BMS</strong><p>BAT-077 · Sin telemetría CAN-Bus durante 180 segundos.</p></div><span class="status info">Media</span></div>
+ </div>
+ <div class="card"><h2>Protocolo de seguridad</h2><p class="sub">Estándar operativo para baterías Li-Ion</p><ol style="font-size:12px;line-height:2;padding-left:20px"><li>Aislar y cortar suministro eléctrico.</li><li>Monitorear cualquier incremento térmico.</li><li>Mantener perímetro de seguridad de 5 m.</li><li>Enviar batería a cuarentena técnica antes de recargar.</li></ol><div style="margin-top:16px;padding:12px;background:var(--dangerbg);border-radius:6px;color:var(--danger);font-size:11px"><b>BAT-089:</b> 52.4 °C · requiere revisión inmediata.</div></div></div>
+</section>
+</main>
+</div>
+
+<div class="modal" id="bateriaModal"><div class="modal-box"><div class="modal-head"><h3>Registrar nueva batería</h3><button class="close" onclick="closeModal('bateriaModal')">×</button></div><form class="form" onsubmit="addBattery(event)"><label>ID de batería<input id="newId" required placeholder="BAT-1001"></label><label>Código<input id="newCode" required placeholder="EBK-48V-001"></label><label>Bicicleta<input id="newBike" placeholder="BK-001"></label><label>SoC inicial (%)<input id="newSoc" type="number" min="0" max="100" value="100"></label><label>Temperatura (°C)<input id="newTemp" type="number" value="30"></label><label>Estado<select id="newStatus"><option>Operativa</option><option>En Carga</option><option>Mantenimiento</option><option>Inactiva</option></select></label><div class="full modal-actions"><button type="button" class="btn" onclick="closeModal('bateriaModal')">Cancelar</button><button class="btn primary">Guardar batería</button></div></form></div></div>
+
+<div class="modal" id="cargaModal"><div class="modal-box"><div class="modal-head"><h3>Nueva sesión de carga</h3><button class="close" onclick="closeModal('cargaModal')">×</button></div><form class="form" onsubmit="addCharge(event)"><label>ID sesión<input id="chgId" required placeholder="CHG-9850"></label><label>Batería<input id="chgBat" required placeholder="BAT-0012"></label><label>Estación<input id="chgStation" required placeholder="EST-01 / DC-01"></label><label>SoC inicial<input id="chgStart" type="number" min="0" max="100" value="20"></label><label>SoC final<input id="chgEnd" type="number" min="0" max="100" value="100"></label><label>Energía (kWh)<input id="chgKwh" type="number" min="0" step=".01" value="0.70"></label><div class="full modal-actions"><button type="button" class="btn" onclick="closeModal('cargaModal')">Cancelar</button><button class="btn primary">Guardar sesión</button></div></form></div></div>
+
+<div class="modal" id="energiaModal"><div class="modal-box"><div class="modal-head"><h3>Nuevo registro energético</h3><button class="close" onclick="closeModal('energiaModal')">×</button></div><form class="form" onsubmit="addEnergy(event)"><label>Estación<input id="enStation" required placeholder="EST-01 Central Norte"></label><label>Consumo (kWh)<input id="enKwh" type="number" min="0" step=".01" value="500"></label><label>Tarifa USD/kWh<input id="enRate" type="number" min="0" step=".001" value=".210"></label><label class="full">Total calculado<input id="enTotal" readonly value="$105.00 USD"></label><div class="full modal-actions"><button type="button" class="btn" onclick="closeModal('energiaModal')">Cancelar</button><button class="btn primary">Guardar registro</button></div></form></div></div>
+
+<div class="modal" id="tarifaModal"><div class="modal-box"><div class="modal-head"><h3>Ajustar tarifa por kWh</h3><button class="close" onclick="closeModal('tarifaModal')">×</button></div><form class="form" onsubmit="saveRate(event)"><label class="full">Nueva tarifa (USD/kWh)<input id="rateInput" type="number" step=".001" min="0" value=".210"></label><div class="full modal-actions"><button type="button" class="btn" onclick="closeModal('tarifaModal')">Cancelar</button><button class="btn primary">Actualizar tarifa</button></div></form></div></div>
+<div class="toast" id="toast"></div>
+
+<script>
+const pages={dashboard:'Panel general',baterias:'Inventario y Telemetría de Baterías',cargas:'Historial y Sesiones de Carga',energia:'Registro de Energía y Auditoría de Costos',alertas:'Centro de Alertas de Energía y Seguridad'};
+document.querySelectorAll('.nav button[data-page]').forEach(b=>b.addEventListener('click',()=>go(b.dataset.page)));
+function go(page){document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));document.getElementById(page).classList.add('active');document.querySelectorAll('.nav button[data-page]').forEach(b=>b.classList.toggle('active',b.dataset.page===page));document.getElementById('pageTitle').textContent=pages[page];window.scrollTo({top:0,behavior:'smooth'})}
+function openModal(id){document.getElementById(id).classList.add('show')}
+function closeModal(id){document.getElementById(id).classList.remove('show')}
+document.querySelectorAll('.modal').forEach(m=>m.addEventListener('click',e=>{if(e.target===m)m.classList.remove('show')}));
+function showToast(t){const x=document.getElementById('toast');x.textContent=t;x.classList.add('show');setTimeout(()=>x.classList.remove('show'),2600)}
+function filterTable(inputId,tableId){const term=document.getElementById(inputId).value.toLowerCase();document.querySelectorAll('#'+tableId+' tbody tr').forEach(r=>r.style.display=r.innerText.toLowerCase().includes(term)?'':'none')}
+function filterBatteryStatus(){const term=document.getElementById('batSearch').value.toLowerCase(),st=document.getElementById('batStatus').value;document.querySelectorAll('#batTable tbody tr').forEach(r=>{const okText=r.innerText.toLowerCase().includes(term),okSt=!st||r.children[7].innerText.includes(st);r.style.display=okText&&okSt?'':'none'})}
+function filterStatusSelect(sel,id,col){const v=sel.value;document.querySelectorAll('#'+id+' tbody tr').forEach(r=>r.style.display=!v||r.children[col].innerText.includes(v)?'':'none')}
+function exportTable(id,filename){const table=document.getElementById(id);const rows=[...table.querySelectorAll('tr')].map(r=>[...r.children].map(c=>'"'+c.innerText.replaceAll('"','""')+'"').join(','));const blob=new Blob([rows.join('\\n')],{type:'text/csv;charset=utf-8'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=filename;a.click();URL.revokeObjectURL(a.href);showToast('Archivo CSV exportado')}
+function addBattery(e){e.preventDefault();const id=document.getElementById('newId').value,code=document.getElementById('newCode').value,bike=document.getElementById('newBike').value||'—',soc=document.getElementById('newSoc').value,temp=document.getElementById('newTemp').value,status=document.getElementById('newStatus').value;const cls=status==='Operativa'?'ok':status==='En Carga'?'warning':status==='Mantenimiento'?'danger':'info';document.querySelector('#batTable tbody').insertAdjacentHTML('afterbegin',`<tr><td>${id}</td><td>${code}</td><td>${bike}</td><td>${soc}%</td><td>100%</td><td>${temp} °C</td><td>0</td><td><span class="status ${cls}">${status}</span></td></tr>`);closeModal('bateriaModal');showToast('Batería registrada correctamente');document.getElementById('mBaterias').textContent=+document.getElementById('mBaterias').textContent+1;document.getElementById('batCount').textContent=+document.getElementById('batCount').textContent+1;e.target.reset()}
+function addCharge(e){e.preventDefault();const id=document.getElementById('chgId').value,bat=document.getElementById('chgBat').value,st=document.getElementById('chgStation').value,a=document.getElementById('chgStart').value,b=document.getElementById('chgEnd').value,k=document.getElementById('chgKwh').value;document.querySelector('#chargeTable tbody').insertAdjacentHTML('afterbegin',`<tr><td>${id}</td><td>${bat}</td><td>${st}</td><td>${a}%</td><td>${b}%</td><td>—</td><td><span class="status ok">Completado</span></td><td>${k} kWh</td></tr>`);closeModal('cargaModal');showToast('Sesión de carga registrada');e.target.reset()}
+function addEnergy(e){e.preventDefault();const st=document.getElementById('enStation').value,k=+document.getElementById('enKwh').value,r=+document.getElementById('enRate').value,total=(k*r).toFixed(2);document.querySelector('#energyTable tbody').insertAdjacentHTML('afterbegin',`<tr><td>ENG-${Math.floor(2000+Math.random()*8000)}</td><td>${st}</td><td>${new Date().toLocaleDateString('es-CO')}</td><td>${k.toLocaleString()} kWh</td><td>$${r.toFixed(3)}</td><td>$${total}</td><td><span class="status info">En revisión</span></td></tr>`);closeModal('energiaModal');showToast('Registro energético guardado');e.target.reset()}
+document.getElementById('enKwh').addEventListener('input',calcEnergy);document.getElementById('enRate').addEventListener('input',calcEnergy);function calcEnergy(){document.getElementById('enTotal').value='$'+((+enKwh.value||0)*(+enRate.value||0)).toFixed(2)+' USD'}
+function saveRate(e){e.preventDefault();showToast('Tarifa actualizada a $'+(+document.getElementById('rateInput').value).toFixed(3)+' / kWh');closeModal('tarifaModal')}
+function simular(){const p=+document.getElementById('simRange').value,k=+document.getElementById('simKwh').value||0;document.getElementById('valleLabel').textContent=p+'%';document.getElementById('ahorro').textContent='$'+(k*p/100*.052).toFixed(2)+' USD';document.getElementById('co2').textContent=Math.round(k*.26).toLocaleString('es-CO')+' Kg CO₂'}
+function toggleTheme(){document.body.classList.toggle('dark');if(document.body.classList.contains('dark')){document.documentElement.style.setProperty('--bg','#0b1c30');document.documentElement.style.setProperty('--card','#13263a');document.documentElement.style.setProperty('--text','#eef5ff');document.documentElement.style.setProperty('--muted','#a9b8c8');document.documentElement.style.setProperty('--line','#2d4054')}else location.reload()}
+simular();
+</script>
+</body>
+</html>
